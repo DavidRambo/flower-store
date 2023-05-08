@@ -35,9 +35,11 @@ def create_app(test_config=None):
 
     from . import home
     from . import store
+    from . import cart
 
     app.register_blueprint(home.bp)
     app.register_blueprint(store.bp)
+    app.register_blueprint(cart.bp)
 
     app.add_url_rule("/", endpoint="home")
 
