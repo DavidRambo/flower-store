@@ -33,4 +33,12 @@ def create_app(test_config=None):
     db.init_app(app)
     migrate.init_app(app, db)
 
+    from . import home
+    from . import store
+
+    app.register_blueprint(home.bp)
+    app.register_blueprint(store.bp)
+
+    app.add_url_rule("/", endpoint="home")
+
     return app
