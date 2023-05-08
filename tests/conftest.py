@@ -6,13 +6,17 @@ import pytest
 from flower_store import create_app, db
 
 
-@pytest.fixture
+@pytest.fixture()
 def app():
     """Main setup fixture."""
-    db_fd, db_path = tempfile.mkstemp()
+    # db_fd, db_path = tempfile.mkstemp()
 
     app = create_app(
-        {"TESTING": True, "SQLALCHEMY_DATABASE_URI": "sqlite:///" + db_path + "test.db"}
+        {
+            "TESTING": True,
+            # "SQLALCHEMY_DATABASE_URI": "sqlite:///" + db_path + "test.db"
+            "SQLALCHEMY_DATABASE_URI": "sqlite://",
+        }
     )
 
     with app.app_context():
@@ -20,11 +24,11 @@ def app():
 
     yield app
 
-    os.close(db_fd)
-    os.unlink(db_path)
+    # os.close(db_fd)
+    # os.unlink(db_path)
 
 
-@pytest.fixture
+@pytest.fixture()
 def client(app):
     """Tests will use the client to make requests to the application without
     running the server.
