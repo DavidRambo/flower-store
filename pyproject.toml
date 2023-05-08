@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "flower-store"
+version = "0.0.1"
+authors = [
+    {name = "David Rambo", email = "davidrambo@mailfence.com"},
+]
+description = "Store for selling flowers built on Flask."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "flask",
+]
+
+[project.urls]
+homepage = "http://github.com/DavidRambo/flower-store"
+repository = "http://github.com/DavidRambo/flower-store"
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "pytest",
+]
