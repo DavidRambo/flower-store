@@ -13,6 +13,9 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "flask",
+    "flask-sqlalchemy",
+    "flask-migrate",
+    "python-dotenv",
 ]
 
 [project.urls]
@@ -22,5 +25,17 @@ repository = "http://github.com/DavidRambo/flower-store"
 [project.optional-dependencies]
 dev = [
     "black",
+    "coverage",
     "pytest",
 ]
+
+[tool.coverage.paths]
+source = ["src"]
+
+[tool.coverage.run]
+branch = true
+source = ["flower_store"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 100
