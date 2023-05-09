@@ -1,9 +1,10 @@
-import os
-import tempfile
+# import os
+# import tempfile
 
 import pytest
 
 from flower_store import create_app, db
+from flower_store.models import Flower
 
 
 @pytest.fixture()
@@ -34,3 +35,18 @@ def client(app):
     running the server.
     """
     return app.test_client()
+
+
+@pytest.fixture()
+def setup_db(app):
+    # Create three flowers
+    f1 = Flower(name="Diva", stock=5)
+    f2 = Flower(name="Daddy's Girl", stock=8)
+    f3 = Flower(name="KA's Mocha Maya")
+
+    with app.app_context():
+        # Add to database
+        db.session.add(f1)
+        db.session.add(f2)
+        db.session.add(f3)
+        db.session.commit()
