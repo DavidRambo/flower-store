@@ -1,0 +1,5 @@
+{% if flowers|length>0 %}
+    {% for flower in flowers %}
+        {% include "_flower.html" %}
+    {% endfor %}
+{% endif %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h1>Catalog</h1>
+{% endblock header %}
+
+{% block content %}
+<h2>All Flowers</h2>
+<div>
+    <input
+        type="text"
+        name="search"
+        hx-post="/search"
+        hx-trigger="keyup changed delay:250ms"
+        hx-indicator=".htmx-indicator"
+        hx-target="#todo-results"
+        placeholder="Search..."
+    >
+</div>
+    <div>
+        {% include "results.html" %}
+    </div>
+{% endblock content %}

@@ -34,11 +34,11 @@ def create_app(test_config=None):
     migrate.init_app(app, db)
 
     from . import home
-    from . import store
+    from . import catalog
     from . import cart
 
     app.register_blueprint(home.bp)
-    app.register_blueprint(store.bp)
+    app.register_blueprint(catalog.bp)
     app.register_blueprint(cart.bp)
 
     app.add_url_rule("/", endpoint="home")
