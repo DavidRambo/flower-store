@@ -1,20 +1,12 @@
 from flower_store import db
 from flower_store.models import Flower
+from flower_store import catalog
 
 
-def test_flower(client, app):
+def test_flowers_stock(app, setup_db):
     """Tests the Flower model in the database."""
-    # Create three flowers
-    f1 = Flower(name="Diva", stock=5)
-    f2 = Flower(name="Daddy's Girl", stock=8)
-    f3 = Flower(name="KA's Mocha Maya")
 
     with app.app_context():
-        # Add to database
-        db.session.add(f1)
-        db.session.add(f2)
-        db.session.add(f3)
-
         # Confirm there are three entries in database
         assert Flower.query.count() == 3
 
@@ -31,3 +23,16 @@ def test_flower(client, app):
                 in_stock.update({flower.name: flower.stock})
 
         assert len(in_stock) == 2
+
+
+def test_search(client, app, setup_db):
+    """Tests the search route.
+
+    The search route '/catalog/search' is activated via a POST request.
+    """
+
+    with app.app_context():
+        # TODO: build template for view function that has a text form named "search"
+        response = client.post("/catalog/search", data={"search": "ka"})
+        assert response.status_code == 200  # I think this is correct.
+        assert b"KA's Mocha Maya" in response.data

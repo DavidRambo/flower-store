@@ -1,5 +1,5 @@
-def test_store(client):
-    """Tests the store page."""
-    response = client.get("/store")
+def test_catalog(client):
+    """Tests the catalog page."""
+    response = client.get("/catalog")
     response.status_code = 200
-    assert b"Store - Flower Shop" in response.data
+    assert b"Catalog - Flower Shop" in response.data
