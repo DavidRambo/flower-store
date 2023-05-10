@@ -3,7 +3,7 @@ from flask import Blueprint, current_app, render_template, request, url_for
 
 from flower_store.models import Flower
 
-bp = Blueprint("store", __name__)
+bp = Blueprint("catalog", __name__)
 
 
 @bp.route("/catalog", methods=["GET"])
@@ -16,10 +16,10 @@ def catalog():
         page=page, per_page=current_app.config["PER_PAGE"], error_out=False
     )
     next_url = (
-        url_for("store.catalog", page=flowers.next_num) if flowers.has_next else None
+        url_for("catalog.catalog", page=flowers.next_num) if flowers.has_next else None
     )
     prev_url = (
-        url_for("store.catalog", page=flowers.prev_num) if flowers.has_prev else None
+        url_for("catalog.catalog", page=flowers.prev_num) if flowers.has_prev else None
     )
     return render_template(
         "catalog.html",
@@ -34,7 +34,7 @@ def catalog():
 def flower(flower_id):
     """Individual flower's page."""
     pass
-    flower = Flower.query.filter_by(id=flower_id)
+    flower = Flower.query.filter_by(id=flower_id).first()
 
     image_file = url_for("static", filename="flower_imgs/" + flower.image_file)
     return render_template(
