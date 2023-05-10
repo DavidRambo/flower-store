@@ -25,6 +25,7 @@ class Flower(db.Model):
 def dev_populate():
     """Populates the database with Flowers for the sake of development."""
     from random import randint
+    from random import shuffle
 
     flowers = [
         "KA's Bella Luna",
@@ -33,6 +34,10 @@ def dev_populate():
         "KA's Mocha Jake",
         "KA's Mocha Maya",
     ]
+    shuffle(flowers)
+
+    # Clear Flower table
+    Flower.query.delete()
 
     for flower in flowers:
         db.session.add(Flower(name=flower, stock=randint(0, 10)))
