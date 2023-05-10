@@ -22,3 +22,6 @@ class Config:
     # )
     SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI") or None
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    # Number of flowers to show per page in the catalog.
+    PER_PAGE = 10
