@@ -18,6 +18,12 @@ If you want to develop, then run:
 > pip install -e .
 ```
 
+To minify the css using pytailwindcss:
+
+```
+> tailwindcss -i src/flower_store/static/src/main.css -o src/flower_store/static/dist/main.css --minify
+```
+
 ## TODO
 
 * Store page
