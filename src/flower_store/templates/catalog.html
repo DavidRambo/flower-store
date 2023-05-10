@@ -13,11 +13,11 @@
         hx-post="/search"
         hx-trigger="keyup changed delay:250ms"
         hx-indicator=".htmx-indicator"
-        hx-target="#todo-results"
+        hx-target="#flower-results"
         placeholder="Search..."
     >
 </div>
-    <div>
-        {% include "results.html" %}
-    </div>
+<div id="flower-results">
+    {% include "results.html" %}
+</div>
 {% endblock content %}

@@ -18,9 +18,12 @@ coverage==7.2.5
     # via flower-store (pyproject.toml)
 flask==2.3.2
     # via
+    #   flask-assets
     #   flask-migrate
     #   flask-sqlalchemy
     #   flower-store (pyproject.toml)
+flask-assets==2.0
+    # via flower-store (pyproject.toml)
 flask-migrate==4.0.4
     # via flower-store (pyproject.toml)
 flask-sqlalchemy==3.0.3
@@ -54,6 +57,8 @@ platformdirs==3.5.0
     # via black
 pluggy==1.0.0
     # via pytest
+pytailwindcss==0.1.4
+    # via flower-store (pyproject.toml)
 pytest==7.3.1
     # via flower-store (pyproject.toml)
 python-dotenv==1.0.0
@@ -66,5 +71,7 @@ typing-extensions==4.5.0
     # via
     #   alembic
     #   sqlalchemy
+webassets==2.0
+    # via flask-assets
 werkzeug==2.3.3
     # via flask

@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-    <title>
-            {% if title %}
-                {{ title }} - Flower Shop
-            {% else %}
-                Flower Shop
-            {% endif %}
-    </title>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <header>
-        {% block header %}{% endblock header %}
-    </header>
-    
-    <section>
-    {% block content %}{% endblock content %}
-    </section>
+        {% assets "css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}">
+        {% endassets %}
+
+        <title>
+                {% if title %}
+                    {{ title }} - Flower Shop
+                {% else %}
+                    Flower Shop
+                {% endif %}
+        </title>
+    <head>
+
+    <body>
+        <header>
+            {% block header %}{% endblock header %}
+        </header>
+        
+        <section>
+        {% block content %}{% endblock content %}
+        </section>
+    </body>
 </html>

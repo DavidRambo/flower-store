@@ -13,6 +13,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "flask",
+    "flask-assets",
     "flask-sqlalchemy",
     "flask-migrate",
     "python-dotenv",
@@ -27,6 +28,7 @@ dev = [
     "black",
     "coverage",
     "pytest",
+    "pytailwindcss",
 ]
 
 [tool.coverage.paths]

@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask
+from flask_assets import Bundle, Environment
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
@@ -32,6 +33,14 @@ def create_app(test_config=None):
 
     db.init_app(app)
     migrate.init_app(app, db)
+
+    # Instantiate Environment from Flask-Assets
+    # Note that assets.init_app(app) is not sufficient to link to the app.
+    assets = Environment(app)
+    # assets.init_app(app)
+    css = Bundle("src/main.css", output="dist/main.css")
+    assets.register("css", css)
+    css.build()
 
     from . import home
     from . import catalog
