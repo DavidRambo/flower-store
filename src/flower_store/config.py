@@ -24,4 +24,4 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # Number of flowers to show per page in the catalog.
-    PER_PAGE = 10
+    PER_PAGE = 3

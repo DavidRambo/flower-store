@@ -36,3 +36,4 @@ def dev_populate():
 
     for flower in flowers:
         db.session.add(Flower(name=flower, stock=randint(0, 10)))
+        db.session.commit()

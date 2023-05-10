@@ -6,17 +6,6 @@
 
 {% block content %}
 <h2>All Flowers</h2>
-<div>
-    <input
-        type="text"
-        name="search"
-        hx-post="/search"
-        hx-trigger="keyup changed delay:250ms"
-        hx-indicator=".htmx-indicator"
-        hx-target="#flower-results"
-        placeholder="Search..."
-    >
-</div>
 <div id="flower-results">
     {% include "results.html" %}
 </div>

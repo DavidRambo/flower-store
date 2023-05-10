@@ -1,3 +1,4 @@
+"""Routes for browsing, searching, and viewing flowers in the database."""
 from flask import Blueprint, current_app, render_template, request, url_for
 
 from flower_store.models import Flower
@@ -12,11 +13,21 @@ def catalog():
     """
     page = request.args.get("page", 1, type=int)
     flowers = Flower.query.order_by(Flower.name).paginate(
-        page=page, per_page=current_app["PER_PAGE"], error_out=False
+        page=page, per_page=current_app.config["PER_PAGE"], error_out=False
     )
-    # TODO: Add prev and next urls here and in templates
-    # See _pages.html in code_projects/fmt/ as well as the index.html's nav
-    return render_template("catalog.html", title="Catalog", flowers=flowers.items)
+    next_url = (
+        url_for("store.catalog", page=flowers.next_num) if flowers.has_next else None
+    )
+    prev_url = (
+        url_for("store.catalog", page=flowers.prev_num) if flowers.has_prev else None
+    )
+    return render_template(
+        "catalog.html",
+        title="Catalog",
+        flowers=flowers.items,
+        next_url=next_url,
+        prev_url=prev_url,
+    )
 
 
 @bp.route("/catalog/<flower_id>", methods=["GET"])
@@ -31,14 +42,26 @@ def flower(flower_id):
     )
 
 
-@bp.route("/catalog/search", methods=["POST"])
+@bp.route("/search", methods=["GET"])
 def search():
+    return render_template("search.html", title="Search")
+
+
+@bp.route("/search_results", methods=["POST"])
+def search_results():
     """Renders a template displaying search results from the Flower database."""
     # Retrieve search string from field with name="q"
-    q: str = request.args.get("search")
-    if q:
-        flower_ids: list[int] = query_flowers(q)
-        return render_template("results.html", flower_ids=flower_ids)
+    search_term: str = request.args.get("search")
+    print(search_term)
+
+    if search_term:
+        print(">>> searching...")
+        page = request.args.get("page", 1, type=int)
+        query = Flower.query.filter(Flower.name.ilike("%" + search_term + "%"))
+        flowers_sorted = query.order_by(Flower.name).paginate(
+            page=page, per_page=current_app.config["PER_PAGE"], error_out=False
+        )
+        return render_template("results.html", flower_ids=flowers_sorted)
     return ""
 
 
@@ -47,9 +70,10 @@ def query_flowers(q: str) -> list[int]:
     sorted alphabetically by name.
     """
     # Get matching Flower entries.
-    flowers = Flower.query.filter(Flower.name.ilike("%" + q + "%"))
+    query = Flower.query.filter(Flower.name.ilike("%" + q + "%"))
 
     # Extract name and id
-    name_id = {f.name: f.id for f in flowers}
+    name_id = {flower.name: flower.id for flower in query}
 
+    # Return list of IDs (primary keys in db) sorted by name of Flower.
     return [name_id[f] for f in sorted(name_id)]
