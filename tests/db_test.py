@@ -1,6 +1,4 @@
-from flower_store import db
 from flower_store.models import Flower
-from flower_store import catalog
 
 
 def test_flowers_stock(app, setup_db):
@@ -28,11 +26,10 @@ def test_flowers_stock(app, setup_db):
 def test_search(client, app, setup_db):
     """Tests the search route.
 
-    The search route '/catalog/search' is activated via a POST request.
+    The search route '/search_results' is activated via a POST request.
     """
 
     with app.app_context():
-        # TODO: build template for view function that has a text form named "search"
-        response = client.post("/catalog/search", data={"search": "ka"})
+        response = client.post("/search_results", data={"search": "ka"})
         assert response.status_code == 200  # I think this is correct.
-        assert b"KA's Mocha Maya" in response.data
+        assert b"Mocha Maya" in response.data
