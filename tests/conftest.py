@@ -17,6 +17,7 @@ def app():
             "TESTING": True,
             # "SQLALCHEMY_DATABASE_URI": "sqlite:///" + db_path + "test.db"
             "SQLALCHEMY_DATABASE_URI": "sqlite://",
+            "PER_PAGE": 12,
         }
     )
 
