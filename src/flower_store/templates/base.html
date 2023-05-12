@@ -1,38 +1,73 @@
 <!DOCTYPE html>
+<!-- Adapted from HTML5Up Phantom -->
 <html lang="en">
     <head>
+        <title>
+            {% if title %}
+                {{ title }} - Flower Shop
+            {% else %}
+                Flower Shop
+            {% endif %}
+        </title>
+        <link rel="icon" href="../static/src/iconiic_dahlia.png" />
+
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
-        {% assets "css" %}
-        <link rel="stylesheet" href="{{ ASSET_URL }}">
-        {% endassets %}
-
-        <title>
-                {% if title %}
-                    {{ title }} - Flower Shop
-                {% else %}
-                    Flower Shop
-                {% endif %}
-        </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='src/' + 'main.css') }}" />
+        <noscript><link rel="stylesheet" href="{{ url_for('static', filename='src/' + 'noscript.css') }}" /></noscript>
     <head>
 
-    <nav id="menu">
-        <a href="{{ url_for('catalog.catalog') }}">Catalog</a>
+    <body class="is-preload">
+        <div id="wrapper">
 
-        <a href="{{ url_for('catalog.search') }}">Search</a>
-    </nav>
+            <!-- Header -->
+            <header id="header">
 
-    <body>
-        <header>
-            {% block header %}{% endblock header %}
-        </header>
-        
-        <section>
-        {% block content %}{% endblock content %}
-        </section>
+                <!-- Nav -->
+                <nav>
+                    <ul>
+                        <li><a href="#menu">Menu</a></li>
+                    </ul>
+                </nav>
 
+                <div class="inner">
+                {% block header %}{% endblock header %}
+                </div>
+            </header>
+            
+            <!-- Navigation -->
+            <nav id="menu">
+                <h2>Menu</h2>
+                <ul>
+                    <li><a href="{{ url_for('catalog.catalog') }}">Catalog</a></li>
+                    <li><a href="{{ url_for('catalog.search') }}">Search</a></li>
+                </ul>
+            </nav>
+
+            <!-- Main Content -->
+            <div id="main">
+                <div class="inner">
+                    {% block content %}{% endblock content %}
+                </div>
+            </div>
+
+        </div>
+
+		<!-- Scripts -->
         <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+        <script src="../static/src/jquery.min.js"></script>
+        <script src="../static/src/browser.min.js"></script>
+        <script src="../static/src/breakpoints.min.js"></script>
+        <script src="../static/src/util.js"></script>
+        <script src="../static/src/main.js"></script>
+        <!--
+        <script src="{{ url_for('static', filename='src/' + 'jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='src/' + 'browser.min.js') }}"</script>
+        <script src="{{ url_for('static', filename='src/' + 'breakpoints.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='src/' + 'util.js') }}"></script>
+        <script src="{{ url_for('static', filename='src/' + 'main.js') }}"></script>
+-->
     </body>
 </html>

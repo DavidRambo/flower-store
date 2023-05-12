@@ -1,7 +1,6 @@
 import os
 
 from flask import Flask
-from flask_assets import Bundle, Environment
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
@@ -33,20 +32,6 @@ def create_app(test_config=None):
 
     db.init_app(app)
     migrate.init_app(app, db)
-
-    # Instantiate Environment from Flask-Assets
-    # Note that assets.init_app(app) is not sufficient to link to the app.
-    assets = Environment(app)
-    # assets.init_app(app)
-
-    # All paths are relative to the app's static/ directory, or the static/
-    # directory of a Flask blueprint
-    css = Bundle("src/main.css", output="dist/main.css")
-    js = Bundle("src/*.js", output="dist/main.js")
-    assets.register("css", css)
-    assets.register("js", js)
-    css.build()
-    js.build()
 
     from . import home
     from . import catalog

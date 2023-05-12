@@ -1,7 +1,9 @@
 {% if flowers is defined and flowers|length>0 %}
-    {% for flower in flowers %}
-        {% include "_flower.html" %}
-    {% endfor %}
+    <section class="tiles">
+        {% for flower in flowers %}
+            {% include "_flower.html" %}
+        {% endfor %}
+    </section>
 
     <nav aria-label="...">
         <ul>
