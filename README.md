@@ -18,6 +18,13 @@ If you want to develop, then run:
 > pip install -e .
 ```
 
+Either way, to setup the database:
+
+```
+> flask db upgrade
+```
+
+### Currently not in use
 To minify the css using pytailwindcss:
 
 ```
