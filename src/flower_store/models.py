@@ -37,7 +37,8 @@ def dev_populate():
     shuffle(flowers)
 
     # Clear Flower table
-    Flower.query.delete()
+    if Flower.query.first():
+        Flower.query.delete()
 
     for flower in flowers:
         db.session.add(Flower(name=flower, stock=randint(0, 10)))
