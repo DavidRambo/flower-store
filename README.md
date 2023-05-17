@@ -18,6 +18,13 @@ If you want to develop, then run:
 > pip install -e .
 ```
 
+Either way, to setup the database:
+
+```
+> flask db upgrade
+```
+
+### Currently not in use
 To minify the css using pytailwindcss:
 
 ```
@@ -27,6 +34,8 @@ To minify the css using pytailwindcss:
 ## TODO
 
 * Store page
-* Search
+* Shopping Cart
+* Session management for shopping cart
 * Wishlist for customers
     Allow customers to sign up for email notifications for the flowers they want.
+* Login-protected frontend for adding to and manipulating the catalog
