@@ -28,11 +28,30 @@ def dev_populate():
     from random import shuffle
 
     flowers = [
+        "A-Peeling",
+        "Bliss",
+        "Bride To Be",
+        "Café au Lait",
+        "Cheers",
+        "Daddy's Girl",
+        "Diva",
+        "Fluffles",
+        "Foxy Lady",
+        "Ice Tea",
         "KA's Bella Luna",
         "KA's Blood Orange",
         "KA's Boho Peach",
+        "KA's Cloud",
         "KA's Mocha Jake",
         "KA's Mocha Maya",
+        "L'Ancress",
+        "Lovebug",
+        "Mai Tai",
+        "Maki",
+        "Marshmallow",
+        "Maui",
+        "Moonstruck",
+        "Tootles",
     ]
     shuffle(flowers)
 
