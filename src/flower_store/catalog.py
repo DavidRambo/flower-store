@@ -1,5 +1,5 @@
 """Routes for browsing, searching, and viewing flowers in the database."""
-from flask import Blueprint, current_app, render_template, request, url_for
+from flask import Blueprint, current_app, render_template, request, url_for, redirect
 
 from flower_store.models import Flower
 
@@ -33,8 +33,7 @@ def catalog():
 @bp.route("/catalog/<flower_id>", methods=["GET"])
 def flower(flower_id):
     """Individual flower's page."""
-    pass
-    flower = Flower.query.filter_by(id=flower_id).first()
+    flower = Flower.query.get(int(flower_id))
 
     image_file = url_for("static", filename="flower_imgs/" + flower.image_file)
     return render_template(

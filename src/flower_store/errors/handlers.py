@@ -16,6 +16,11 @@ def error_403(error):
     return render_template("errors/403.html"), 403
 
 
+@bp.app_errorhandler(AttributeError)
+def error_406(error):
+    return render_template("errors/406.html"), 406
+
+
 @bp.app_errorhandler(500)
 def error_500(error):
     return render_template("errors/500.html"), 500

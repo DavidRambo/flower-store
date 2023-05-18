@@ -1,35 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        {% assets "css" %}
-        <link rel="stylesheet" href="{{ ASSET_URL }}">
-        {% endassets %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>
-                {% if title %}
-                    {{ title }} - Flower Shop
-                {% else %}
-                    Flower Shop
-                {% endif %}
-        </title>
-        <nav>
-            <a href="{{ url_for('catalog.search') }}">Search</a>
-        </nav>
+    {% assets "css" %}
+    <link rel="stylesheet" href="{{ ASSET_URL }}">
+    {% endassets %}
+
+    <title>
+        {% if title %}
+        {{ title }} - Flower Shop
+        {% else %}
+        Flower Shop
+        {% endif %}
+    </title>
+
     <head>
 
     <body>
+        <nav>
+            <a href="{{ url_for('catalog.catalog') }}">Catalog</a>
+            <a href="{{ url_for('catalog.search') }}">Search</a>
+            <a href="{{ url_for('home.home') }}">Home</a>
+        </nav>
         <header>
             {% block header %}{% endblock header %}
         </header>
-        
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
         <section>
-        {% block content %}{% endblock content %}
+            {% block content %}{% endblock content %}
         </section>
 
-        <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+        <script type="text/javascript" src="../static/src/htmx.js"></script>
     </body>
+
 </html>
