@@ -1,4 +1,7 @@
-from flower_store import db
+from flask_login import UserMixin
+from werkzeug.security import check_password_hash, generate_password_hash
+
+from flower_store import db, login
 
 
 class Flower(db.Model):
@@ -22,10 +25,27 @@ class Flower(db.Model):
         return f"<Flower: {self.name}, {self.stock}>"
 
 
+class Admin(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(64), index=True, unique=True)
+    password_hash = db.Column(db.String(120), index=True)
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+
+@login.user_loader
+def load_user(id: str) -> Admin:
+    """Queries the database's Admin table for the admin with the provided id."""
+    return Admin.query.get(int(id))
+
+
 def dev_populate():
     """Populates the database with Flowers for the sake of development."""
-    from random import randint
-    from random import shuffle
+    from random import randint, shuffle
 
     flowers = [
         "A-Peeling",
