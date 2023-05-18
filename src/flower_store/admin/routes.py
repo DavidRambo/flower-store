@@ -1,5 +1,5 @@
 from flask import Blueprint, flash, redirect, render_template, url_for
-from flask_login import current_user, login_required, login_user
+from flask_login import current_user, login_required, login_user, logout_user
 
 from flower_store.admin.forms import LoginForm
 from flower_store.models import Admin
@@ -33,7 +33,8 @@ def login():
 @admin_bp.route("/logout")
 @login_required
 def logout():
-    pass
+    logout_user()
+    return redirect(url_for("home.home"))
 
 
 @admin_bp.route("/add_flower")
