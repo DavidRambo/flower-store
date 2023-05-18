@@ -14,8 +14,10 @@ requires-python = ">=3.11"
 dependencies = [
     "flask",
     "flask-assets",
-    "flask-sqlalchemy",
+    "flask-login",
     "flask-migrate",
+    "flask-sqlalchemy",
+    "flask-wtf",
     "python-dotenv",
 ]
 
