@@ -1,6 +1,8 @@
 import os
 
 from flask import Flask
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 from flask_assets import Bundle, Environment
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
@@ -11,6 +13,8 @@ from flower_store.config import Config
 db = SQLAlchemy()
 # Do the same for the migration engine.
 migrate = Migrate()
+
+admin = Admin()
 
 
 def create_app(test_config=None):
@@ -33,6 +37,13 @@ def create_app(test_config=None):
 
     db.init_app(app)
     migrate.init_app(app, db)
+
+    # Setup admin app context and ModelViews
+    admin.init_app(app)
+
+    from flower_store.models import Flower
+
+    admin.add_view(ModelView(Flower, db.session))
 
     # Instantiate Environment from Flask-Assets
     # Note that assets.init_app(app) is not sufficient to link to the app.
