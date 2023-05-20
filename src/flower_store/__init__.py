@@ -2,8 +2,8 @@ import os
 
 from flask import Flask
 from flask_admin import Admin
-from flask_admin.contrib.sqla import ModelView
 from flask_assets import Bundle, Environment
+from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
@@ -15,6 +15,8 @@ db = SQLAlchemy()
 migrate = Migrate()
 
 admin = Admin()
+
+login = LoginManager()
 
 
 def create_app(test_config=None):
@@ -39,11 +41,13 @@ def create_app(test_config=None):
     migrate.init_app(app, db)
 
     # Setup admin app context and ModelViews
-    admin.init_app(app)
-
     from flower_store.models import Flower
+    from flower_store.admin_views import MyAdminIndexView, MyModelView
 
-    admin.add_view(ModelView(Flower, db.session))
+    admin.init_app(app, index_view=MyAdminIndexView())
+    admin.add_view(MyModelView(Flower, db.session))
+
+    login.init_app(app)
 
     # Instantiate Environment from Flask-Assets
     # Note that assets.init_app(app) is not sufficient to link to the app.
@@ -62,10 +66,12 @@ def create_app(test_config=None):
     from . import home
     from . import catalog
     from . import cart
+    from . import auth
 
     app.register_blueprint(home.bp)
     app.register_blueprint(catalog.bp)
     app.register_blueprint(cart.bp)
+    app.register_blueprint(auth.bp)
 
     app.add_url_rule("/", endpoint="home")
 
