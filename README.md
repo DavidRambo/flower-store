@@ -24,6 +24,14 @@ Either way, to setup the database:
 > flask db upgrade
 ```
 
+The `run.py` script exposes some dev functions from `dev_fns.py` in the shell:
+```
+> flask shell
+
+>>> popf()  # populates the database with Flower table entries
+>>> ca()  # creates a user with admin privileges
+```
+
 ### Currently not in use
 To minify the css using pytailwindcss:
 
