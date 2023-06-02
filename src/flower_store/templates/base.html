@@ -1,47 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         {% assets "css" %}
-        <link rel="stylesheet" href="{{ ASSET_URL }}">
+            <link rel="stylesheet" href="{{ ASSET_URL }}" />
         {% endassets %}
-
         <title>
-                {% if title %}
-                    {{ title }} - Flower Shop
-                {% else %}
-                    Flower Shop
-                {% endif %}
+            {% if title %}
+                {{ title }} - Flower Shop
+            {% else %}
+                Flower Shop
+            {% endif
+            %}
         </title>
         <nav>
-            <a href="{{ url_for('catalog.search') }}">Search</a>
+            <a href="{{ url_for("catalog.search") }}">Search</a>
         </nav>
-    <head>
-
+    </head>
     <body>
         <header>
-            {% block header %}{% endblock header %}
+            {% block header %}
+            {% endblock header %}
         </header>
-        
         <section>
-        <div>
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                <div style="color: red;">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-            {% endwith %}
-
-            {# application content needs to be provided in the app_content block #}
-            {% block app_content %}{% endblock %}
-        </div>
-        {% block content %}{% endblock content %}
+            <div>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for
+                            message in messages %}
+                            <div style="color: red">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                {# application content needs to
+be provided in the app_content block #}
+                {% block app_content %}{% endblock %}
+            </div>
+            {% block content %}
+            {% endblock content %}
         </section>
-
         <script src="https://unpkg.com/htmx.org@1.9.2"></script>
     </body>
 </html>
