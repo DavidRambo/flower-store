@@ -2,6 +2,7 @@
 
 {% block content %}
 <div>
+    <p>Search is case-insensitive but not fuzzy. "ka" will find all "KA's", but "KA Cloud" or "kas cloud" will not return anything because of the missing apostrophe.</p>
     <input
         type="text"
         name="search"

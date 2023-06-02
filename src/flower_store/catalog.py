@@ -50,7 +50,7 @@ def search():
 @bp.route("/search_results", methods=["POST"])
 def search_results():
     """Renders a template displaying search results from the Flower database."""
-    # Retrieve search string from field with name="q"
+    # Retrieve search string from field with name="search"
     search_term: str = request.form.get("search")
 
     if not len(search_term):
