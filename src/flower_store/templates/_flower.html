@@ -3,6 +3,9 @@
   <a href="{{ url_for('catalog.flower', flower_id=flower.id) }}">
     <img class="w-full h-48 lg:h-72 object-cover"
          src="{{ url_for('static', filename='flower_imgs/' + flower.image_file) }}">
-  {{ flower.name }}</a>
+      <div class="pt-1">
+  <span class="text-md">{{ flower.name }}</span>
+</div>
+  </a>
 </div>
 <!-- or: <article></article> ? -->
