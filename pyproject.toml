@@ -19,6 +19,7 @@ dependencies = [
     "flask-migrate",
     "flask-sqlalchemy",
     "flask-wtf",
+    "pytailwindcss",
     "python-dotenv",
 ]
 
@@ -30,6 +31,7 @@ repository = "http://github.com/DavidRambo/flower-store"
 dev = [
     "black",
     "coverage",
+    "djlint",
     "pytest",
     "pytailwindcss",
 ]
@@ -44,3 +46,9 @@ source = ["flower_store"]
 [tool.coverage.report]
 show_missing = true
 fail_under = 100
+
+[tool.djlint]
+indent=2
+profile="jinja"
+# no_function_formatting=true
+

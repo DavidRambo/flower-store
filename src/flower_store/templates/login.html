@@ -1,36 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Sign In</h1>
-    <div>
-        <!-- empty action means it keeps the same route, in this case login.htlm -->
-        <form method="POST", action="">
-            <!-- `form` is the variable passed from login() in the users blueprint -->
-            {{ form.hidden_tag() }}
-            <fieldset>
-                <div class="form-group">
-                    {{ form.username.label }}
-                    {% if form.username.errors %}
-                        {{ form.username }}
-                        <div>
-                            {% for error in form.username.errors %}<span>{{ error }}</span>{% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.username }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.password.label }}
-                    {% if form.password.errors %}
-                        {{ form.password }}
-                        <div class="invalid-feedback">
-                            {% for error in form.password.errors %}<span>{{ error }}</span>{% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.password }}
-                    {% endif %}
-                </div>
-            </fieldset>
-            <div class="form-group">{{ form.submit }}</div>
-        </form>
-    </div>
+  <h1>Sign In</h1>
+  <div>
+    <!-- empty action means it keeps the same route, in this case login.htlm -->
+    <form method="POST", action="">
+      <!-- `form` is the variable passed from login() in the users blueprint -->
+      {{ form.hidden_tag() }}
+      <fieldset>
+        <div class="form-group">
+          {{ form.username.label }}
+          {% if form.username.errors %}
+            {{ form.username }}
+            <div>
+              {% for error in form.username.errors %}<span>{{ error }}</span>{% endfor %}
+            </div>
+          {% else %}
+            {{ form.username }}
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ form.password.label }}
+          {% if form.password.errors %}
+            {{ form.password }}
+            <div class="invalid-feedback">
+              {% for error in form.password.errors %}<span>{{ error }}</span>{% endfor %}
+            </div>
+          {% else %}
+            {{ form.password }}
+          {% endif %}
+        </div>
+      </fieldset>
+      <div class="form-group">{{ form.submit }}</div>
+    </form>
+  </div>
 {% endblock content %}

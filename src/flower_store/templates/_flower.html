@@ -1,6 +1,6 @@
 <!-- `flower` is provided by the parent template -->
 <div>
-    <img src="{{ url_for('static', filename='flower_imgs/' + flower.image_file) }}">
-    <a href="{{ url_for('catalog.flower', flower_id=flower.id) }}">{{ flower.name }}</a>
+  <img src="{{ url_for('static', filename='flower_imgs/' + flower.image_file) }}">
+  <a href="{{ url_for('catalog.flower', flower_id=flower.id) }}">{{ flower.name }}</a>
 </div>
 <!-- or: <article></article> ? -->
