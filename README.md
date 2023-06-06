@@ -32,18 +32,38 @@ The `run.py` script exposes some dev functions from `dev_fns.py` in the shell:
 >>> ca()  # creates a user with admin privileges
 ```
 
-### Currently not in use
+### TailwindCSS
+
 To minify the css using pytailwindcss:
 
 ```
 > tailwindcss -i src/flower_store/static/src/main.css -o src/flower_store/static/dist/main.css --minify
 ```
 
+### OpenSearch
+
+The site uses OpenSearch as an index for full-text search.
+
+If on MacOS:
+```
+To start opensearch now and restart at login:
+  brew services start opensearch
+Or, if you don't want/need a background service you can just run:
+  /opt/homebrew/opt/opensearch/bin/opensearch
+```
+
+Otherwise, on Linux:
+```
+...
+```
+
+OpenSearch provides a high-level Python client (opensearch-dsl-py)[https://opensearch.org/docs/latest/clients/python-high-level/]
+for common interactions with an OpenSearch index.
+
 ## TODO
 
-* Store page
+* Full-text search
 * Shopping Cart
 * Session management for shopping cart
 * Wishlist for customers
     Allow customers to sign up for email notifications for the flowers they want.
-* Login-protected frontend for adding to and manipulating the catalog

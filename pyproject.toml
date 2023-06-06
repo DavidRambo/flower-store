@@ -22,6 +22,7 @@ dependencies = [
     "pillow",
     "pytailwindcss",
     "python-dotenv",
+    "opensearch-dsl",
 ]
 
 [project.urls]
