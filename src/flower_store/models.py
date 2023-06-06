@@ -15,7 +15,7 @@ class Flower(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), index=True, unique=True)
     stock = db.Column(db.Integer, default=0)
-    image_file = db.Column(db.String(20), default="default.png")
+    image_file = db.Column(db.String(30), default="default.png")
     bloom_size = db.Column(db.Float(5))  # in inches
     height = db.Column(db.Float(5))  # in feet
     # form = db.Column(db.String(40))
