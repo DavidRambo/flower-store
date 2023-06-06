@@ -42,10 +42,28 @@ def create_app(test_config=None):
 
     # Setup admin app context and ModelViews
     from flower_store.models import Flower
-    from flower_store.admin_views import MyAdminIndexView, MyModelView
+    from flower_store.admin_views import MyAdminIndexView, FlowerView
 
     admin.init_app(app, index_view=MyAdminIndexView())
-    admin.add_view(MyModelView(Flower, db.session))
+    admin.add_view(FlowerView(Flower, db.session))
+
+    from sqlalchemy.event import listens_for
+    from flower_store.admin_views import IMAGE_PATH
+
+    @listens_for(Flower, "after_delete")
+    def del_image(mapper, connection, target):
+        if target.image_file:
+            # Delete image
+            try:
+                os.remove(os.path.join(IMAGE_PATH, target.image_file))
+            except OSError:
+                pass
+
+            # Delete thumbnail
+            # try:
+            #     os.remove(os.path.join(IMAGE_PATH, thumbgen_filename(target.path)))
+            # except OSError:
+            #     pass
 
     login.init_app(app)
 
