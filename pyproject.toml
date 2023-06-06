@@ -19,6 +19,7 @@ dependencies = [
     "flask-migrate",
     "flask-sqlalchemy",
     "flask-wtf",
+    "pillow",
     "pytailwindcss",
     "python-dotenv",
 ]

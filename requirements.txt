@@ -47,6 +47,8 @@ markupsafe==2.1.2
     #   mako
     #   werkzeug
     #   wtforms
+pillow==9.5.0
+    # via flower-store (pyproject.toml)
 pytailwindcss==0.1.4
     # via flower-store (pyproject.toml)
 python-dotenv==1.0.0
