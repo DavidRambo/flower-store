@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.card {
+    @apply pb-2 md:w-full text-center bg-white border rounded-md overflow-hidden hover:shadow-lg hover:scale-105 hover:bg-opacity-50 transform ease-out duration-300;
+}
+
+.pager {
+    @apply py-2 px-3 text-purple-800 underline decoration-solid hover:decoration-wavy transition ease-out duration-300;
+}

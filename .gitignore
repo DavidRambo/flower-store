@@ -1,5 +1,6 @@
 instance/
-.env
+src/flower_store/static/flower_imgs/*
+!src/flower_store/static/flower_imgs/default.png
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
