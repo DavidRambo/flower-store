@@ -10,6 +10,8 @@ black==23.3.0
     # via flower-store (pyproject.toml)
 blinker==1.6.2
     # via flask
+certifi==2023.5.7
+    # via elastic-transport
 click==8.1.3
     # via
     #   black
@@ -27,6 +29,10 @@ editorconfig==0.12.3
     # via
     #   cssbeautifier
     #   jsbeautifier
+elastic-transport==8.4.0
+    # via elasticsearch
+elasticsearch==8.8.0
+    # via flower-store (pyproject.toml)
 flask==2.3.2
     # via
     #   flask-admin
@@ -116,6 +122,8 @@ typing-extensions==4.5.0
     # via
     #   alembic
     #   sqlalchemy
+urllib3==1.26.16
+    # via elastic-transport
 webassets==2.0
     # via flask-assets
 werkzeug==2.3.3
