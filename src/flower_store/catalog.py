@@ -44,23 +44,31 @@ def flower(flower_id):
 
 @bp.route("/search", methods=["GET"])
 def search():
+    """Entry route for the app's search functionality.
+
+    The `search.html` template contains a text input form powered by HTMX.
+    That input form POSTs to `/search_results`, which handles the query and
+    renders it through the `results.html` template.
+    """
     return render_template("search.html", title="Search")
 
 
 @bp.route("/search_results", methods=["POST"])
 def search_results():
     """Renders a template displaying search results from the Flower database."""
-    # Retrieve search string from field with name="q"
     search_term: str = request.form.get("search")
 
     if not len(search_term):
         return render_template("results.html", flower_ids=None)
 
     page = request.args.get("page", 1, type=int)
+
     query = Flower.query.filter(Flower.name.ilike("%" + search_term + "%"))
+
     flowers_sorted = query.order_by(Flower.name).paginate(
         page=page, per_page=current_app.config["PER_PAGE"], error_out=False
     )
+
     return render_template("results.html", flowers=flowers_sorted.items)
 
 
