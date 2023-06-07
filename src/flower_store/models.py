@@ -5,7 +5,7 @@ from flower_store import db, login
 
 
 class Flower(db.Model):
-    """Represents a row in the Users table, which SQLAlchemy will translate.
+    """Represents a row in the Flower table, which SQLAlchemy will translate.
 
     db.Model is the base class for all models from Flask-SQLAlchemy. Fields
     are represented by the class's instance attributes, which are themselves

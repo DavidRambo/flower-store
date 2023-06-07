@@ -33,7 +33,6 @@ def catalog():
 @bp.route("/catalog/<flower_id>", methods=["GET"])
 def flower(flower_id):
     """Individual flower's page."""
-    pass
     flower = Flower.query.filter_by(id=flower_id).first()
 
     image_file = url_for("static", filename="flower_imgs/" + flower.image_file)
