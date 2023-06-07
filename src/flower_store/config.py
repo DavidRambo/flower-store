@@ -29,3 +29,7 @@ class Config:
 
     # Config variable for setting logging to use stdout when deployed via Heroku.
     LOG_TO_STDOUT = os.environ.get("LOG_TO_STDOUT")
+
+    ELASTICSEARCH_URL = os.environ.get("ELASTICSEARCH_URL")
+    ELASTIC_KEY = os.environ.get("ELASTIC_KEY")
+    ELASTIC_CERT = os.environ.get("ELASTIC_CERT")

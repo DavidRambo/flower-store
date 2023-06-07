@@ -2,6 +2,7 @@ import logging
 import os
 from logging.handlers import RotatingFileHandler
 
+from elasticsearch import Elasticsearch
 from flask import Flask
 from flask_admin import Admin
 from flask_assets import Bundle, Environment
@@ -59,6 +60,18 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
+
+    # Check for elasticsearch setup.
+    if app.config["ELASTICSEARCH_URL"]:
+        app.elasticsearch = Elasticsearch(
+            app.config["ELASTICSEARCH_URL"],
+            ca_certs=app.config["ELASTIC_CERT"],
+            basic_auth=("elastic", app.config["ELASTIC_KEY"]),
+            # scheme="https",
+            # port=443,
+        )
+    else:
+        app.elasticsearch = None
 
     db.init_app(app)
     migrate.init_app(app, db)

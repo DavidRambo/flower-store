@@ -1,5 +1,8 @@
 """Routes for browsing, searching, and viewing flowers in the database."""
 from flask import Blueprint, current_app, render_template, request, url_for
+from flask_wtf import FlaskForm
+from wtforms import StringField
+from wtforms.validators import DataRequired
 
 from flower_store.models import Flower
 
@@ -89,9 +92,7 @@ def search_results():
         return render_template("results.html", flower_ids=None)
 
     page = request.args.get("page", 1, type=int)
-
-    query = Flower.query.filter(Flower.name.ilike("%" + search_term + "%"))
-
+    query, total = Flower.search(search_term)
     flowers_sorted = query.order_by(Flower.name).paginate(
         page=page, per_page=current_app.config["PER_PAGE"], error_out=False
     )

@@ -2,15 +2,76 @@ from flask_login import UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from flower_store import db, login
+from flower_store.search import add_to_index, remove_from_index, query_index
 
 
-class Flower(db.Model):
-    """Represents a row in the Flower table, which SQLAlchemy will translate.
+class SearchableMixin(object):
+    """A mixin class to provide interface between SQLAlchemy and Elasticsearch.
+
+    Modeled on Migeul Grinberg's Flask Mega-Tutorial, part 16.
+    """
+
+    @classmethod
+    def search(cls, expression):
+        """Wraps the flower_storesearch.query_index method, replacing the list of object
+        IDs with actual objects. For example, when the mixin class is inherited
+        by the Post model, cls.__tablename__ refers to the name that
+        Flask-SQLAlchemy assigned to the relational table. It returns the list
+        of result IDs and the total number of results.
+        """
+        ids, total = query_index(cls.__tablename__, expression)
+        if total == 0:
+            return cls.query.filter_by(id=0), 0
+        when = []
+        for idx, id in enumerate(ids):
+            when.append((id, idx))
+        return (
+            cls.query.filter(cls.id.in_(ids)).order_by(db.case(*when, value=cls.id)),
+            total,
+        )
+
+    @classmethod
+    def before_commit(cls, session) -> None:
+        session._changes = {
+            "add": list(session.new),
+            "update": list(session.dirty),
+            "delete": list(session.deleted),
+        }
+
+    @classmethod
+    def after_commit(cls, session) -> None:
+        for obj in session._changes["add"]:
+            if isinstance(obj, SearchableMixin):
+                add_to_index(obj.__tablename__, obj)
+        for obj in session._changes["update"]:
+            if isinstance(obj, SearchableMixin):
+                add_to_index(obj.__tablename__, obj)
+        for obj in session._changes["delete"]:
+            if isinstance(obj, SearchableMixin):
+                add_to_index(obj.__tablename__, obj)
+
+    @classmethod
+    def reindex(cls) -> None:
+        for obj in cls.query:
+            add_to_index(cls.__tablename__, obj)
+
+
+db.event.listen(db.session, "before_commit", SearchableMixin.before_commit)
+db.event.listen(db.session, "after_commit", SearchableMixin.after_commit)
+
+
+class Flower(SearchableMixin, db.Model):
+    """Represents a row in the Users table, which SQLAlchemy will translate.
 
     db.Model is the base class for all models from Flask-SQLAlchemy. Fields
     are represented by the class's instance attributes, which are themselves
     created as instances of the db.Column class.
+
+    : attr :
+        __searchable__ : list of fields indexed by the search engine
     """
+
+    __searchable__ = ["name"]
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), index=True, unique=True)
