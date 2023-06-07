@@ -1,6 +1,7 @@
 instance/
 src/flower_store/static/flower_imgs/*
 !src/flower_store/static/flower_imgs/default.png
+http_ca.crt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
