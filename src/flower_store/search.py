@@ -1,5 +1,8 @@
 """Adds to, removes from, and queries the elasticsearch index.
 
+Adapted from Miguel Grinberg's Flask Mega-Tutorial, with changes made to
+query_index.
+
 Each function first checks whether the current Flask application has
 enabled elasticsearch.
 

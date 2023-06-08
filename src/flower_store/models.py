@@ -13,7 +13,7 @@ class SearchableMixin(object):
 
     @classmethod
     def search(cls, expression):
-        """Wraps the flower_storesearch.query_index method, replacing the list of object
+        """Wraps the flower_store.search.query_index method, replacing the list of object
         IDs with actual objects. For example, when the mixin class is inherited
         by the Post model, cls.__tablename__ refers to the name that
         Flask-SQLAlchemy assigned to the relational table. It returns the list

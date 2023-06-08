@@ -92,7 +92,7 @@ def search_results():
         return render_template("results.html", flower_ids=None)
 
     page = request.args.get("page", 1, type=int)
-    query, total = Flower.search(search_term)
+    query, _ = Flower.search(search_term)
     flowers_sorted = query.order_by(Flower.name).paginate(
         page=page, per_page=current_app.config["PER_PAGE"], error_out=False
     )
