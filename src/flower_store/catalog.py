@@ -69,17 +69,3 @@ def search_results():
     )
 
     return render_template("results.html", flowers=flowers_sorted.items)
-
-
-def query_flowers(q: str) -> list[int]:
-    """Returns a list of ID ints corresponding to Flower entries in the db,
-    sorted alphabetically by name.
-    """
-    # Get matching Flower entries.
-    query = Flower.query.filter(Flower.name.ilike("%" + q + "%"))
-
-    # Extract name and id
-    name_id = {flower.name: flower.id for flower in query}
-
-    # Return list of IDs (primary keys in db) sorted by name of Flower.
-    return [name_id[f] for f in sorted(name_id)]
