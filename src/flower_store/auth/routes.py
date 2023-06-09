@@ -28,6 +28,9 @@ def login():
         if not next_page or url_parse(next_page).netloc != "":
             next_page = url_for("catalog.catalog")
 
+        if user.is_admin:
+            return redirect("admin")
+
         return redirect(next_page)
 
     # Note that the "form" referenced in the login.html template is named by the
