@@ -25,6 +25,7 @@ Either way, to setup the database:
 ```
 
 The `run.py` script exposes some dev functions from `dev_fns.py` in the shell:
+
 ```
 > flask shell
 
@@ -32,18 +33,23 @@ The `run.py` script exposes some dev functions from `dev_fns.py` in the shell:
 >>> ca()  # creates a user with admin privileges
 ```
 
-### Currently not in use
+### TailwindCSS
+
 To minify the css using pytailwindcss:
 
 ```
 > tailwindcss -i src/flower_store/static/src/main.css -o src/flower_store/static/dist/main.css --minify
 ```
 
+During development, the TailwindCSS can be updated automatically by running a background process:
+
+```
+> tailwindcss -i src/flower_store/static/src/main.css -o src/flower_store/static/dist/main.css --watch
+```
+
 ## TODO
 
-* Store page
-* Shopping Cart
-* Session management for shopping cart
-* Wishlist for customers
-    Allow customers to sign up for email notifications for the flowers they want.
-* Login-protected frontend for adding to and manipulating the catalog
+- Shopping Cart
+- Session management for shopping cart
+- Wishlist for customers
+  Allow customers to sign up for email notifications for the flowers they want.
