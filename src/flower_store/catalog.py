@@ -30,6 +30,30 @@ def catalog():
     )
 
 
+@bp.route("/catalog/in_stock", methods=["GET"])
+def in_stock():
+    """Displays flowers with a stock of at least one."""
+    page = request.args.get("page", 1, type=int)
+
+    in_stock_query = Flower.query.filter(Flower.stock > 0)
+    flowers = in_stock_query.order_by(Flower.name).paginate(
+        page=page, per_page=current_app.config["PER_PAGE"], error_out=False
+    )
+    next_url = (
+        url_for("catalog.catalog", page=flowers.next_num) if flowers.has_next else None
+    )
+    prev_url = (
+        url_for("catalog.catalog", page=flowers.prev_num) if flowers.has_prev else None
+    )
+    return render_template(
+        "catalog.html",
+        title="In-Stock",
+        flowers=flowers.items,
+        next_url=next_url,
+        prev_url=prev_url,
+    )
+
+
 @bp.route("/catalog/<flower_id>", methods=["GET"])
 def flower(flower_id):
     """Individual flower's page."""
