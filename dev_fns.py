@@ -10,7 +10,6 @@ def populate_flowers():
 
     flowers = [
         "A-Peeling",
-        "Bliss",
         "Bride To Be",
         "Café au Lait",
         "Cheers",
@@ -32,6 +31,8 @@ def populate_flowers():
         "Marshmallow",
         "Maui",
         "Moonstruck",
+        "Snapdragon",
+        "Straw flower",
         "Tootles",
     ]
     shuffle(flowers)
@@ -45,7 +46,17 @@ def populate_flowers():
     Flower.query.delete()
 
     for flower in flowers:
-        db.session.add(Flower(name=flower, stock=randint(0, 10)))
+        if flower == "Straw flower":
+            db.session.add(
+                Flower(
+                    name=flower,
+                    stock=randint(0, 10),
+                    image_file="strawflower_edb8f2b8dc93.png",
+                )
+            )
+        else:
+            db.session.add(Flower(name=flower, stock=randint(0, 10)))
+
         db.session.commit()
 
 
