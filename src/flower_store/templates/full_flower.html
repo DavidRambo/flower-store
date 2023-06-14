@@ -4,7 +4,7 @@
 {% endblock header %}
 {% block content %}
 <div class="grid grid-cols-2 gap-5">
-  <img class="col-span-1" src="{{ image_file }}">
+  <img class="col-span-1 border rounded-lg" src="{{ image_file }}">
   <ul class="col-span-1 text-left ml-2 md:ml-4 flex flex-col">
     <li class="md:mt-4 p-2 sm:mt-2"><strong>Bloom size</strong>: {{ flower.bloom_size }}</li>
     <li class="md:mt-4 p-2 sm:mt-2"><strong>Height</strong>: {{ flower.height }}</li>
