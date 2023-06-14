@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
   <h1>Sign In</h1>
+  <div id="messages">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for
+          message in messages %}
+          <div class="rounded-lg bg-red-400 py-2">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
   <div>
     <!-- empty action means it keeps the same route, in this case login.htlm -->
     <form method="POST", action="">

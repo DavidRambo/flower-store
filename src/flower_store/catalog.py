@@ -54,9 +54,13 @@ def in_stock():
     )
 
 
-@bp.route("/catalog/<flower_id>", methods=["GET"])
+@bp.route("/catalog/<flower_id>", methods=["GET", "POST"])
 def flower(flower_id):
-    """Individual flower's page."""
+    """Individual flower's page.
+
+    GET : Display the `full_flower.html` template of that flower.
+    POST : When clicking the "Add to cart" button.
+    """
     flower = Flower.query.filter_by(id=flower_id).first()
 
     image_file = url_for("static", filename="flower_imgs/" + flower.image_file)

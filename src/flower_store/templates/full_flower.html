@@ -3,17 +3,43 @@
   {{ title }}
 {% endblock header %}
 {% block content %}
-<div class="grid grid-cols-2 gap-5">
-  <img class="col-span-1 border rounded-lg" src="{{ image_file }}">
-  <ul class="col-span-1 text-left ml-2 md:ml-4 flex flex-col">
-    <li class="md:mt-4 p-2 sm:mt-2"><strong>Bloom size</strong>: {{ flower.bloom_size }}</li>
-    <li class="md:mt-4 p-2 sm:mt-2"><strong>Height</strong>: {{ flower.height }}</li>
-    {% if flower.stock > 0 %}
-      <li class="md:mt-4 p-2 sm:mt-2"><strong>Stock</strong>: {{ flower.stock }}</li>
-      <li class="mt-auto mb-2"><button class="rounded-sm bg-pink-200 p-2">Add to cart</button></li>
-    {% else %}
-      <li class="p-2 italic mt-auto mb-2">Out of Stock</li>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+        {% for message in messages %}<li class="bg-blue-500">{{ message }}</li>{% endfor %}
+      </ul>
     {% endif %}
-  </ul>
-</div>
+  {% endwith %}
+  <div class="grid grid-cols-2 gap-5">
+    <img class="col-span-1 border rounded-lg" src="{{ image_file }}">
+    <ul class="col-span-1 text-left ml-2 md:ml-4 flex flex-col">
+      <li class="md:mt-4 p-2 sm:mt-2">
+        <strong>Bloom size</strong>: {{ flower.bloom_size }}
+      </li>
+      <li class="md:mt-4 p-2 sm:mt-2">
+        <strong>Height</strong>: {{ flower.height }}
+      </li>
+      {% if flower.stock > 0 %}
+        <li class="md:mt-4 p-2 sm:mt-2">
+          <strong>Stock</strong>: {{ flower.stock }}
+        </li>
+        <li class="md:mt-4 p-2 sm:mt-2">
+          <strong>Price</strong>: ${{ flower.price }}
+        </li>
+        <li class="mt-auto mb-2">
+          <form action="{{ url_for('cart.add', flower_id=flower.id) }}" method="post">
+            <input class="w-12 py-1 pl-2 pr-1 border-gray-300 rounded-lg focus:border-blue-300 mr-4"
+                   name="quantity"
+                   type="number"
+                   value="1"
+                   min="0"
+                   max="{{ flower.stock }}" />
+            <button class="rounded-md bg-pink-200 p-2">Add to cart</button>
+          </form>
+        </li>
+      {% else %}
+        <li class="p-2 italic mt-auto mb-2">Out of Stock</li>
+      {% endif %}
+    </ul>
+  </div>
 {% endblock content %}

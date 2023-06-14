@@ -47,24 +47,12 @@
           </h1>
         </header>
         <section>
-          <div id="messages">
-            {% with messages = get_flashed_messages() %}
-              {% if messages %}
-                {% for
-                  message in messages %}
-                  <div style="color: red">{{ message }}</div>
-                {% endfor %}
-              {% endif %}
-            {% endwith %}
-            {# application content needs to be provided in the app_content block #}
-            {% block app_content %}{% endblock %}
-          </div>
           {% block content %}
           {% endblock content %}
         </section>
       </main>
     </div>
-    <footer class="grid grid-cols-5 text-sm text-center p-8 mt-10 bg-pink-300 sticky">
+    <footer class="grid grid-cols-5 text-sm text-center p-8 mt-10 bg-pink-300 bg-opacity-50 sticky">
       <div class="md:col-span-1"></div>
       <div class="col-span-5 md:col-span-4">Copyright 2023, Breezy</div>
     </footer>

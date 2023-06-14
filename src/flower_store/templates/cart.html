@@ -3,4 +3,68 @@
   Shopping Cart
 {% endblock header %}
 {% block content %}
+  <!-- Display messages for flowers no longer in stock. -->
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="m-4 p-4">
+        <ul>
+          {% for message in messages %}<li class="bg-blue-500 bg-opacity-40 p-2 rounded-lg">{{ message }}</li>{% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  {% endwith %}
+  <div class="rounded-lg shadow">
+    {% if cart %}
+      <table class="w-full">
+        <thead class="bg-blue-300 bg-opacity-40 rounded-xl">
+          <tr>
+            <th class="w-44 p-3 text-sm font-semibold tracking-wide text-left"
+                scope="col">Flower</th>
+            <th class="w-40 p-3 text-sm font-semibold tracking-wide text-center"
+                scope="col">Quantity</th>
+            <th class="w-12 p-3 text-sm font-semibold tracking-wide text-left"
+                scope="col">Cost</th>
+            <td class="p-3" colspan="1"></td>
+          </tr>
+        </thead>
+        <!-- Loop through items in cart -->
+        {% for id, name, quantity, cost, stock in cart %}
+          <tr class="border-b-2 mt-4">
+            <!-- Name -->
+            <td class="p-3 text-left text-sm">
+              <a class="text-gray-800 underline decoration-solid hover:decoration-wavy transition ease-out duration-300 underline-offset-2" href="{{ url_for('catalog.flower', flower_id=id) }}">
+              {{ name }}
+              </a>
+            </td>
+            <!-- Quantity -->
+            <td class="p-3 text-sm text-gray-800">
+              <form class="flex flex-row"
+                    action="{{ url_for('cart.update', flower_id=id) }}"
+                    method="post">
+                <input class="w-12 py-1 pl-2 pr-1 border-gray-300 rounded-lg focus:border-blue-300 mr-4"
+                       name="quantity"
+                       type="number"
+                       value="{{ quantity }}"
+                       min="0"
+                       max="{{ stock }}" />
+                <button class="p-1 rounded-md bg-green-300 bg-opacity-50">Update</button>
+              </form>
+            </td>
+            <!-- Cost -->
+            <td class="p-3 text-left text-sm text-gray-800">{{ cost }}</td>
+            <!-- Remove -->
+            <td class="p-3 text-sm text-gray-800">
+              <form action="{{ url_for('cart.remove', flower_id=id) }}" method="post">
+                <button class="rounded-md bg-gray-400 p-2">Remove</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+    <p class="mt-4">Total: {{ total }}</p>
+  {% else %}
+    <p class="m-6">Your cart is empty.</p>
+  </div>
+{% endif %}
 {% endblock content %}
