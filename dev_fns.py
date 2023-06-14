@@ -66,7 +66,7 @@ def populate_flowers():
         else:
             db.session.add(Flower(name=flower, stock=randint(0, 10)))
 
-        db.session.commit()
+    db.session.commit()
 
 
 def create_admin():
