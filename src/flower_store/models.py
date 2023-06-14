@@ -18,6 +18,7 @@ class Flower(db.Model):
     image_file = db.Column(db.String(30), default="default.png")
     bloom_size = db.Column(db.Float(5))  # in inches
     height = db.Column(db.Float(5))  # in feet
+    price = db.Column(db.Float(5))  # in dollars US
     # form = db.Column(db.String(40))
     # color = db.Column(db.String(20))
 
