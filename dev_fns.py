@@ -31,6 +31,7 @@ def populate_flowers():
         "Marshmallow",
         "Maui",
         "Moonstruck",
+        "Ranunculus",
         "Snapdragon",
         "Straw flower",
         "Tootles",
@@ -52,6 +53,14 @@ def populate_flowers():
                     name=flower,
                     stock=randint(0, 10),
                     image_file="strawflower_edb8f2b8dc93.png",
+                )
+            )
+        elif flower == "Ranunculus":
+            db.session.add(
+                Flower(
+                    name=flower,
+                    stock=randint(0, 10),
+                    image_file="ranunculus_fc5fbcc0f.jpg",
                 )
             )
         else:

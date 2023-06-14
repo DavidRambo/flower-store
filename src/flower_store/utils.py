@@ -15,7 +15,7 @@ def image_rename(obj, file_data) -> str:
     if curr_len > 30:
         # Trim off excess characters from f_name portion
         to_trim = 30 - curr_len
-        f_name = f_name[: to_trim + 1]
+        f_name = f_name[:to_trim]
 
     upload_name = f_name + "_" + random_hex + f_ext
 
