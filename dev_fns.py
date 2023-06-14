@@ -62,6 +62,7 @@ def populate_flowers():
                     name=flower,
                     stock=randint(0, 10),
                     image_file="ranunculus_fc5fbcc0f.jpg",
+                    price=35.00,
                 )
             )
         else:
