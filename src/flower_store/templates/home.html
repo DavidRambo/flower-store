@@ -5,8 +5,9 @@
   {% endblock title %}
 {% endblock header %}
 {% block content %}
-  <div class="m-6 md:mx-12 xl:mx-20">
-    <img class="border rounded-lg" src="{{ url_for('static', filename='flower_imgs/' + 'dahlia_vase.jpg') }}">
+  <div class="grid m-6 md:mx-12 xl:mx-20 content-center">
+    <img class="justify-self-center border rounded-lg xl:max-w-[70%] h-auto"
+         src="{{ url_for('static', filename='flower_imgs/' + 'dahlia_vase.jpg') }}">
   </div>
   <div>
     <br class="my-20">

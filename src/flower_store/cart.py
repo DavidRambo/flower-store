@@ -2,6 +2,7 @@ from collections import defaultdict
 
 from flask import Blueprint, flash, redirect, render_template, request, session, url_for
 
+from flower_store import db
 from flower_store.models import Flower
 
 bp = Blueprint("cart", __name__)
@@ -30,7 +31,7 @@ def cart():
 
     # Query database for flowers in cart, creating a list of tuples comprising the
     # id, name of the flower, the quantity in cart, and the total price.
-    flowers = []
+    flowers_in_cart = []
     total: float = 0
     for id in session["cart"]:
         flower = Flower.query.filter(Flower.id == id).first()
@@ -38,7 +39,7 @@ def cart():
             quantity = session["cart"][id]
         except KeyError:
             continue
-        flowers.append(
+        flowers_in_cart.append(
             (
                 flower.id,
                 flower.name,
@@ -50,7 +51,10 @@ def cart():
         total += flower.price * quantity
 
     return render_template(
-        "cart.html", title="Shopping Cart", cart=flowers, total="${:.2f}".format(total)
+        "cart.html",
+        title="Shopping Cart",
+        cart=flowers_in_cart,
+        total="${:.2f}".format(total),
     )
 
 
@@ -116,6 +120,33 @@ def remove(flower_id):
         return redirect(url_for("cart.cart"))
 
 
+@bp.route("/cart/checkout", methods=["GET"])
+def checkout():
+    """Moves to the checkout page.
+
+    Currently no payment is implemented, so this is only for proof of concept.
+    The user will have the option to submit their order or return to cart.
+    """
+    return render_template("checkout.html", title="Checkout")
+
+
+@bp.route("/cart/submit", methods=["POST"])
+def submit():
+    """Submits the order, clears the cart in the session, and reduces stock."""
+    # Go through cart, reducing stock of flowers.
+    for id, quantity in session["cart"].items():
+        flower = Flower.query.filter(Flower.id == id).first()
+        flower.stock -= quantity
+
+    db.session.commit()
+
+    # Clear the shopping cart.
+    session["cart"].clear()
+
+    flash("Order submitted!")
+    return redirect(url_for("cart.cart"))
+
+
 def _check_cart() -> list[str] | None:
     """Goes through the session's shopping cart to check for items that are
     either out of stock or understocked relative to the amount currently in the
@@ -130,6 +161,7 @@ def _check_cart() -> list[str] | None:
             messages.append(f"{flower.name} is no longer in stock.")
         elif session["cart"][flower_id] > flower.stock:
             session["cart"][flower_id] = flower.stock
-    session.modified = True  # Not sure that this is necessary since
-    # a key in the dict is being deleted.
+
+    # Not sure that this is necessary since a key in the dict is being deleted.
+    session.modified = True
     return messages if len(messages) > 0 else None

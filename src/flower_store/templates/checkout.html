@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block header %}
+  Shopping Cart
+{% endblock header %}
+{% block content %}
+<div class="grid grid-cols-2">
+  <form action="{{ url_for('cart.submit') }}" method="post">
+    <button class="p-1 rounded-md bg-green-300 bg-opacity-50">Submit Order</button>
+  </form>
+  <form action="{{ url_for('cart.cart') }}" method="get">
+    <button class="p-1 rounded-md bg-green-300 bg-opacity-50">Back to Cart</button>
+  </form>
+</div>
+{% endblock content %}

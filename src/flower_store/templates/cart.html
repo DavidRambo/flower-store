@@ -32,9 +32,8 @@
           <tr class="border-b-2 mt-4">
             <!-- Name -->
             <td class="p-3 text-left text-sm">
-              <a class="text-gray-800 underline decoration-solid hover:decoration-wavy transition ease-out duration-300 underline-offset-2" href="{{ url_for('catalog.flower', flower_id=id) }}">
-              {{ name }}
-              </a>
+              <a class="text-gray-800 underline decoration-solid hover:decoration-wavy transition ease-out duration-300 underline-offset-2"
+                 href="{{ url_for('catalog.flower', flower_id=id) }}">{{ name }}</a>
             </td>
             <!-- Quantity -->
             <td class="p-3 text-sm text-gray-800">
@@ -55,7 +54,7 @@
             <!-- Remove -->
             <td class="p-3 text-sm text-gray-800">
               <form action="{{ url_for('cart.remove', flower_id=id) }}" method="post">
-                <button class="rounded-md bg-gray-400 p-2">Remove</button>
+                <button class="rounded-md bg-gray-400 p-1">Remove</button>
               </form>
             </td>
           </tr>
@@ -63,6 +62,11 @@
       </table>
     </div>
     <p class="mt-4">Total: {{ total }}</p>
+    <div>
+      <button class="rounded-md bg-yellow-400 p-1 mt-4">
+        <a href="{{ url_for("cart.checkout") }}">Checkout</a>
+      </button>
+    </div>
   {% else %}
     <p class="m-6">Your cart is empty.</p>
   </div>
