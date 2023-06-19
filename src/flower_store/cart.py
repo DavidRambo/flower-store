@@ -35,10 +35,7 @@ def cart():
     total: float = 0
     for id in session["cart"]:
         flower = Flower.query.filter(Flower.id == id).first()
-        try:
-            quantity = session["cart"][id]
-        except KeyError:
-            continue
+        quantity = session["cart"][id]
         flowers_in_cart.append(
             (
                 flower.id,
@@ -160,6 +157,7 @@ def _check_cart() -> list[str] | None:
             del session["cart"][flower_id]
             messages.append(f"{flower.name} is no longer in stock.")
         elif session["cart"][flower_id] > flower.stock:
+            messages.append(f"{flower.name} stock has been reduced to {flower.stock}.")
             session["cart"][flower_id] = flower.stock
 
     # Not sure that this is necessary since a key in the dict is being deleted.
