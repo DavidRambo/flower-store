@@ -1,6 +1,7 @@
 import logging
 import os
 from logging.handlers import RotatingFileHandler
+from urllib.parse import urlparse
 
 from elasticsearch import Elasticsearch
 from flask import Flask
@@ -63,13 +64,22 @@ def create_app(test_config=None):
 
     # Check for elasticsearch setup.
     if app.config["ELASTICSEARCH_URL"]:
-        app.elasticsearch = Elasticsearch(
-            app.config["ELASTICSEARCH_URL"],
-            ca_certs=app.config["ELASTIC_CERT"],
-            basic_auth=("elastic", app.config["ELASTIC_KEY"]),
-            # scheme="https",
-            # port=443,
-        )
+        if app.config["SEARCHBOX_ENABLED"]:
+            url = urlparse(app.config["ELASTICSEARCH_URL"])
+            app.elasticsearch = Elasticsearch(
+                [url.host],
+                http_auth=(url.username, url.password),
+                scheme=url.scheme,
+                port=url.port,
+            )
+        else:
+            app.elasticsearch = Elasticsearch(
+                app.config["ELASTICSEARCH_URL"],
+                ca_certs=app.config["ELASTIC_CERT"],
+                basic_auth=("elastic", app.config["ELASTIC_KEY"]),
+                # scheme="https",
+                # port=443,
+            )
     else:
         app.elasticsearch = None
 

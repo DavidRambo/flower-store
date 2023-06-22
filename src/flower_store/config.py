@@ -33,3 +33,4 @@ class Config:
     ELASTICSEARCH_URL = os.environ.get("ELASTICSEARCH_URL")
     ELASTIC_KEY = os.environ.get("ELASTIC_KEY")
     ELASTIC_CERT = os.environ.get("ELASTIC_CERT")
+    SEARCHBOX_ENABLED = os.environ.get("SEARCHBOX_ENABLED")
