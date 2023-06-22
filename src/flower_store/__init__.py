@@ -67,10 +67,8 @@ def create_app(test_config=None):
         if app.config["SEARCHBOX_ENABLED"]:
             url = urlparse(app.config["ELASTICSEARCH_URL"])
             app.elasticsearch = Elasticsearch(
-                # [url.host],
-                http_auth=(url.username, url.password),
-                scheme=url.scheme,
-                port=url.port,
+                "https://" + url.hostname + ":433",
+                basic_auth=(url.username, url.password),
             )
         else:
             app.elasticsearch = Elasticsearch(
