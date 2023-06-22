@@ -85,6 +85,7 @@ wtforms==3.0.1
     # via
     #   flask-admin
     #   flask-wtf
+-e .
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
