@@ -1,7 +1,10 @@
+import os
 from random import randint, shuffle
 
+from dotenv import load_dotenv
+
 from flower_store import db
-from flower_store.models import Flower
+from flower_store.models import Flower, User
 
 
 def register(app):
@@ -69,4 +72,30 @@ def register(app):
             else:
                 db.session.add(Flower(name=flower, stock=randint(0, 10), price=35.00))
 
+        db.session.commit()
+
+    @app.cli.command("setup-admin")
+    def setup_admin():
+        """Creates an admin user account."""
+
+        # Ensure `user` table exists
+        if not db.inspect(db.engine).has_table("user"):
+            print("User table does not exist. Run `flask db upgrade`")
+            return
+
+        admin = os.environ.get("ADMIN")
+        admin_pwd = os.environ.get("ADMIN_PWD")
+
+        test_admin = User(
+            username=admin,
+            email="davidrambo@mailfence.com",
+            is_admin=True,
+        )
+        # Check for existing "admin" user and delete if it exists.
+        user = User.query.filter_by(username=test_admin.username).first()
+        if user:
+            db.session.delete(user)
+
+        test_admin.set_password(admin_pwd)
+        db.session.add(test_admin)
         db.session.commit()
