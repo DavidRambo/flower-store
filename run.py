@@ -1,4 +1,3 @@
-import dev_fns
 from flower_store import create_app, db, cli
 from flower_store.models import Flower, User
 
@@ -21,6 +20,4 @@ def make_shell_context():
         "db": db,
         "Flower": Flower,
         "User": User,
-        "popf": dev_fns.populate_flowers,
-        "ca": dev_fns.create_admin,
     }
