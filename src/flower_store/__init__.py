@@ -1,4 +1,6 @@
+import logging
 import os
+from logging.handlers import RotatingFileHandler
 
 from flask import Flask
 from flask_admin import Admin
@@ -31,6 +33,27 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
+    if app.config["LOG_TO_STDOUT"]:
+        stream_handler = logging.StreamHandler()
+        stream_handler.setLevel(logging.INFO)
+        app.logger.addHandler(stream_handler)
+    else:
+        if not os.path.exists("logs"):
+            os.mkdir("logs")
+        file_handler = RotatingFileHandler(
+            "logs/flower-shop.log", maxBytes=10240, backupCount=10
+        )
+        file_handler.setFormatter(
+            logging.Formatter(
+                "%(asctime)s %(levelname)s: %(message)s " "[in %(pathname)s:%(lineno)d]"
+            )
+        )
+        file_handler.setLevel(logging.INFO)
+        app.logger.addHandler(file_handler)
+
+    app.logger.setLevel(logging.INFO)
+    app.logger.info("Flower-Shop startup")
+
     # ensure the instance folder exists
     try:
         os.makedirs(app.instance_path)
@@ -41,13 +64,14 @@ def create_app(test_config=None):
     migrate.init_app(app, db)
 
     # Setup admin app context and ModelViews
+    from flower_store.admin_views import FlowerView, MyAdminIndexView
     from flower_store.models import Flower
-    from flower_store.admin_views import MyAdminIndexView, FlowerView
 
     admin.init_app(app, index_view=MyAdminIndexView())
     admin.add_view(FlowerView(Flower, db.session))
 
     from sqlalchemy.event import listens_for
+
     from flower_store.admin_views import IMAGE_PATH
 
     @listens_for(Flower, "after_delete")
@@ -81,10 +105,7 @@ def create_app(test_config=None):
     css.build()
     js.build()
 
-    from . import home
-    from . import catalog
-    from . import cart
-    from . import auth
+    from . import auth, cart, catalog, home
 
     app.register_blueprint(home.bp)
     app.register_blueprint(catalog.bp)

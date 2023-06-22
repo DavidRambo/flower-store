@@ -26,3 +26,6 @@ class Config:
 
     # Number of flowers to show per page in the catalog.
     PER_PAGE = 12
+
+    # Config variable for setting logging to use stdout when deployed via Heroku.
+    LOG_TO_STDOUT = os.environ.get("LOG_TO_STDOUT")
