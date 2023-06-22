@@ -20,7 +20,9 @@ dependencies = [
     "flask-migrate",
     "flask-sqlalchemy",
     "flask-wtf",
+    "gunicorn",
     "pillow",
+    "psycopg2-binary",
     "pytailwindcss",
     "python-dotenv",
 ]

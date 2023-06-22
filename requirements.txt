@@ -39,6 +39,10 @@ flask-sqlalchemy==3.0.3
     #   flower-store (pyproject.toml)
 flask-wtf==1.1.1
     # via flower-store (pyproject.toml)
+greenlet==2.0.2
+    # via sqlalchemy
+gunicorn==20.1.0
+    # via flower-store (pyproject.toml)
 itsdangerous==2.1.2
     # via
     #   flask
@@ -54,6 +58,8 @@ markupsafe==2.1.2
     #   werkzeug
     #   wtforms
 pillow==9.5.0
+    # via flower-store (pyproject.toml)
+psycopg2-binary==2.9.6
     # via flower-store (pyproject.toml)
 pytailwindcss==0.1.4
     # via flower-store (pyproject.toml)
@@ -79,3 +85,6 @@ wtforms==3.0.1
     # via
     #   flask-admin
     #   flask-wtf
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools
