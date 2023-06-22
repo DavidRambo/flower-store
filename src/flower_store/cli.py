@@ -117,8 +117,8 @@ def register(app):
         for flower in all_flowers:
             # Build payload
             payload = {}
-            for field in Flower.__searchable__:
-                payload[field] = getattr(Flower, field)
+            for field in flower.__searchable__:
+                payload[field] = getattr(flower, field)
             # Add to index
             # There is only one index used, which is named in search.py via
             # Flower.__tablename__
