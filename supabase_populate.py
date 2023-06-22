@@ -1,3 +1,7 @@
+"""Populates the PostgreSQL database hosted on supabase.com with data.
+The problem with this route is that it circumvents the function calls
+that update the Elasticsearch index.
+"""
 import os
 from dotenv import load_dotenv
 from random import randint, shuffle
