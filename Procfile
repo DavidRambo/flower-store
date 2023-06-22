@@ -1,1 +1,1 @@
-web: pip install .; flask db upgrade; gunicorn run:app
+web: flask db upgrade; flask pop-flowers; gunicorn run:app
