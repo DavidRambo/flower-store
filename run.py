@@ -1,8 +1,9 @@
 import dev_fns
-from flower_store import create_app, db
+from flower_store import create_app, db, cli
 from flower_store.models import Flower, User
 
 app = create_app()
+cli.register(app)
 
 
 @app.shell_context_processor
