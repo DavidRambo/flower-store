@@ -73,6 +73,13 @@ def register(app):
             else:
                 db.session.add(Flower(name=flower, stock=randint(0, 10), price=35.00))
 
+            # Update elasticsearch index.
+            if current_app.elasticsearch:
+                entry = Flower.query.filter_by(name=flower).first()
+                current_app.elasticsearch.index(
+                    index="flower", id=entry.id, document={"name": flower}, timeout=30
+                )
+
         db.session.commit()
 
     @app.cli.command("setup-admin")
@@ -123,5 +130,5 @@ def register(app):
             # There is only one index used, which is named in search.py via
             # Flower.__tablename__
             current_app.elasticsearch.index(
-                index="flower", id=flower.id, document=payload
+                index="flower", id=flower.id, document=payload, timeout=30
             )
