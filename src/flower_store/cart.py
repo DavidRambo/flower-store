@@ -90,7 +90,8 @@ def update(flower_id):
 
     if new_quantity == 0:
         # Remove from cart.
-        return redirect(url_for("cart.remove", flower_id=flower_id))
+        # Set code to 307 to use POST request.
+        return redirect(url_for("cart.remove", flower_id=flower_id), code=307)
 
     if session["cart"][flower_id] == new_quantity:
         # Quantity is the same.
