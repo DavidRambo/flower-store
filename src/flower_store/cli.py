@@ -2,6 +2,7 @@ import os
 from random import randint, shuffle
 
 from dotenv import load_dotenv
+from flask import current_app
 
 from flower_store import db
 from flower_store.models import Flower, User
@@ -83,6 +84,7 @@ def register(app):
             print("User table does not exist. Run `flask db upgrade`")
             return
 
+        load_dotenv()
         admin = os.environ.get("ADMIN")
         admin_pwd = os.environ.get("ADMIN_PWD")
 
@@ -99,3 +101,27 @@ def register(app):
         test_admin.set_password(admin_pwd)
         db.session.add(test_admin)
         db.session.commit()
+
+    @app.cli.command("update-es")
+    def update_es_index():
+        """For whatever reason, running my Flask CLI command to populate the
+        flower table does not update the Elasticsearch index. So this script
+        does it manually.
+        """
+        if not current_app.elasticsearch:
+            return
+
+        # Retrieve Flower SQLAlchemy ORM fields in flower table
+        all_flowers = Flower.query.all()
+
+        for flower in all_flowers:
+            # Build payload
+            payload = {}
+            for field in Flower.__searchable__:
+                payload[field] = getattr(Flower, field)
+            # Add to index
+            # There is only one index used, which is named in search.py via
+            # Flower.__tablename__
+            current_app.elasticsearch.index(
+                index="flower", id=flower.id, document=payload
+            )
