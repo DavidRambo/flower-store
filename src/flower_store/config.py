@@ -12,15 +12,16 @@ class Config:
 
     Attributes:
         SECRET_KEY : hex token used to secure encrypted backend requests.
-        DATABASE_URI : location of the SQL database. Defaults to None and
-          allows the application factory to set an instance_path to the db.
+        DATABASE_URL : location of the SQL database. Defaults to None, which
+          tells the application factory to set an instance_path to the db.
     """
 
     SECRET_KEY = os.environ.get("SECRET_KEY") or "secret-key"
     # DATABASE_URI = os.environ.get("DATABASE_URI") or "sqlite:///" + os.path.join(
     #     basedir, "app.db"
     # )
-    SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI") or None
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL", None)
+
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # Number of flowers to show per page in the catalog.
