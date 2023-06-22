@@ -47,9 +47,16 @@ During development, the TailwindCSS can be updated automatically by running a ba
 > tailwindcss -i src/flower_store/static/src/main.css -o src/flower_store/static/dist/main.css --watch
 ```
 
+### Elasticsearch
+
+Elasticsearch is implemented on the `elasticsearch` branch.
+The `main` branch uses case-insensitive SQL queries.
+It works well enough, but it cannot handle fuzzy search in the way elasticsearch does.
+
+When using elasticsearch during development, I run it on my workstation.
+If you do this, remember to stop the process when you're done.
+
 ## TODO
 
-- Shopping Cart
-- Session management for shopping cart
 - Wishlist for customers
   Allow customers to sign up for email notifications for the flowers they want.
