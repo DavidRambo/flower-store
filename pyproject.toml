@@ -37,6 +37,7 @@ dev = [
     "coverage",
     "djlint",
     "pytest",
+    "supabase"
 ]
 
 [tool.coverage.paths]
