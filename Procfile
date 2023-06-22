@@ -1,1 +1,1 @@
-web: pip install .; flask db upgrade; gunicorn 'flower_store:create_app()'
+web: pip install .; flask db upgrade; gunicorn run:app
