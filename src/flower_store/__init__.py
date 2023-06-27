@@ -97,7 +97,7 @@ def create_app(test_config=None):
 
     @listens_for(Flower, "after_delete")
     def del_image(mapper, connection, target):
-        if target.image_file:
+        if target.image_file and target.image_file != "default.png":
             # Delete image
             try:
                 os.remove(os.path.join(IMAGE_PATH, target.image_file))
