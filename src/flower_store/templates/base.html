@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% assets "css" %}
-      <link rel="stylesheet" href="{{ ASSET_URL }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/main.css') }}" />
     {% endassets %}
     <title>
       {% if title %}
@@ -21,22 +21,22 @@
       <div class="col-span-5 md:flex md:justify-evenly md:col-span-1 lg:ml-20">
         <nav class="my-4 md:text-right md:py-4">
           <ul class="text-sm flex justify-center border-b border-b-pink-300 pb-4 md:pb-0 md:block md:mb-6 md:border-b-0 md:border-r md:border-r-pink-300">
-            <li class="px-4 md:mb-4">
-              <a href="{{ url_for("home") }}">Home</a>
+	    <li class="px-4 md:mb-4">
+              <a href="{{ url_for('home') }}">Home</a>
             </li>
             <li class="px-4 md:mb-4">
-              <a href="{{ url_for("catalog.catalog") }}">Catalog</a>
+              <a href="{{ url_for('catalog.catalog') }}">Catalog</a>
             </li>
             <li class="px-4 md:mb-4">
-              <a href="{{ url_for("catalog.in_stock") }}">In-Stock</a>
+              <a href="{{ url_for('catalog.in_stock') }}">In-Stock</a>
             </li>
             <li class="px-4 md:mb-4">
-              <a href="{{ url_for("catalog.search") }}">Search</a>
+              <a href="{{ url_for('catalog.search') }}">Search</a>
             </li>
             <li class="px-4 md:mb-4">
-              <a href="{{ url_for("cart.cart") }}">Cart</a>
+              <a href="{{ url_for('cart.cart') }}">Cart</a>
             </li>
-          </ul>
+	</ul>
         </nav>
       </div>
       <main class="col-span-5 justify-center text-center md:col-span-4 px-8">
@@ -56,6 +56,6 @@
       <div class="md:col-span-1"></div>
       <div class="col-span-5 md:col-span-4">Copyright 2023, Breezy</div>
     </footer>
-    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <script src="{{ url_for('static', filename='dist/main.js' }}"></script>
   </body>
 </html>
