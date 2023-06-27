@@ -12,6 +12,7 @@ description = "Store for selling flowers built on Flask."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "cryptography",
     "elasticsearch",
     "flask",
     "flask-admin",
@@ -22,6 +23,7 @@ dependencies = [
     "flask-wtf",
     "gunicorn",
     "pillow",
+    "pymysql",
     "psycopg2-binary",
     "pytailwindcss",
     "python-dotenv",

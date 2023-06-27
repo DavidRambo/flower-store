@@ -1,0 +1,77 @@
+2023-06-27 18:17:56,948 ERROR: Exception on /catalog [GET] [in /home/ubuntu/flower-store/venv/lib/python3.11/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 920, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: flower
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/flower-store/src/flower_store/catalog.py", line 18, in catalog
+    flowers = Flower.query.order_by(Flower.name).paginate(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/flask_sqlalchemy/query.py", line 99, in paginate
+    return QueryPagination(
+           ^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/flask_sqlalchemy/pagination.py", line 69, in __init__
+    items = self._query_items()
+            ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/flask_sqlalchemy/pagination.py", line 354, in _query_items
+    out = query.limit(self.per_page).offset(self._query_offset).all()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2688, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2842, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2231, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2126, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 292, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1413, in execute
+    return meth(
+           ^^^^^
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 483, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1841, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2339, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ubuntu/flower-store/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 920, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: flower
+[SQL: SELECT flower.id AS flower_id, flower.name AS flower_name, flower.stock AS flower_stock, flower.image_file AS flower_image_file, flower.bloom_size AS flower_bloom_size, flower.height AS flower_height, flower.price AS flower_price 
+FROM flower ORDER BY flower.name
+ LIMIT ? OFFSET ?]
+[parameters: (12, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2023-06-27 18:19:19,464 INFO: Flower-Shop startup [in /home/ubuntu/flower-store/src/flower_store/__init__.py:52]

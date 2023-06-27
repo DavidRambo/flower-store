@@ -53,7 +53,7 @@ def populate_flowers():
                     name=flower,
                     stock=randint(0, 10),
                     image_file="strawflower_edb8f2b8dc93.png",
-                    price=35.00,
+                    price=15.00,
                 )
             )
         elif flower == "Ranunculus":
@@ -66,7 +66,7 @@ def populate_flowers():
                 )
             )
         else:
-            db.session.add(Flower(name=flower, stock=randint(0, 10), price=35.00))
+            db.session.add(Flower(name=flower, stock=randint(0, 10), price=float(str(randint(1,35)) + "." + str(randint(0,99)))))
 
     db.session.commit()
 

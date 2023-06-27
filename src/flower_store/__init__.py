@@ -35,23 +35,18 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
-    if app.config["LOG_TO_STDOUT"]:
-        stream_handler = logging.StreamHandler()
-        stream_handler.setLevel(logging.INFO)
-        app.logger.addHandler(stream_handler)
-    else:
-        if not os.path.exists("logs"):
-            os.mkdir("logs")
-        file_handler = RotatingFileHandler(
-            "logs/flower-shop.log", maxBytes=10240, backupCount=10
+    if not os.path.exists("logs"):
+        os.mkdir("logs")
+    file_handler = RotatingFileHandler(
+        "logs/flower-shop.log", maxBytes=10240, backupCount=10
+    )
+    file_handler.setFormatter(
+        logging.Formatter(
+            "%(asctime)s %(levelname)s: %(message)s " "[in %(pathname)s:%(lineno)d]"
         )
-        file_handler.setFormatter(
-            logging.Formatter(
-                "%(asctime)s %(levelname)s: %(message)s " "[in %(pathname)s:%(lineno)d]"
-            )
-        )
-        file_handler.setLevel(logging.INFO)
-        app.logger.addHandler(file_handler)
+    )
+    file_handler.setLevel(logging.INFO)
+    app.logger.addHandler(file_handler)
 
     app.logger.setLevel(logging.INFO)
     app.logger.info("Flower-Shop startup")
@@ -99,7 +94,7 @@ def create_app(test_config=None):
 
     @listens_for(Flower, "after_delete")
     def del_image(mapper, connection, target):
-        if target.image_file:
+        if target.image_file and target.image_file != "default.png":
             # Delete image
             try:
                 os.remove(os.path.join(IMAGE_PATH, target.image_file))
