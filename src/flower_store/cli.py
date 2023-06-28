@@ -95,6 +95,10 @@ def register(app):
         admin = os.environ.get("ADMIN")
         admin_pwd = os.environ.get("ADMIN_PWD")
 
+        if not admin_pwd:
+            print("There is no admin user password in the local environment.")
+            return
+
         test_admin = User(
             username=admin,
             email="davidrambo@mailfence.com",
