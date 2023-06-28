@@ -12,6 +12,7 @@ class Config:
 
     Attributes:
     """
+
     # hex token used to secure encrypted backend requests.
     SECRET_KEY = os.environ.get("SECRET_KEY") or "secret-key"
 
@@ -24,6 +25,7 @@ class Config:
     # Number of flowers to show per page in the catalog.
     PER_PAGE = 12
 
+    ELASTICSEARCH = os.environ.get("ELASTICSEARCH")
     ELASTICSEARCH_URL = os.environ.get("ELASTICSEARCH_URL")
     ELASTIC_KEY = os.environ.get("ELASTIC_KEY")
     ELASTIC_CERT = os.environ.get("ELASTIC_CERT")
