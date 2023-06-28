@@ -93,7 +93,7 @@ def search_results():
 
     page = request.args.get("page", 1, type=int)
 
-    if current_app["ELASTICSEARCH"] == 1:
+    if current_app.config["ELASTICSEARCH"] == 1:
         query, _ = Flower.search(search_term)
     else:
         query = Flower.query.filter(Flower.name.ilike("%" + search_term + "%"))

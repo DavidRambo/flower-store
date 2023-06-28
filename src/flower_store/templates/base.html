@@ -5,14 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% assets "css" %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='dist/main.css') }}" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='dist/main.css') }}"
+    />
     {% endassets %}
     <title>
-      {% if title %}
-        {{ title }} - Flower Shop
-      {% else %}
-        Flower Shop
-      {% endif
+      {% if title %} {{ title }} - Flower Shop {% else %} Flower Shop {% endif
       %}
     </title>
   </head>
@@ -20,8 +19,10 @@
     <div class="grid grid-cols-5 justify-items-center">
       <div class="col-span-5 md:flex md:justify-evenly md:col-span-1 lg:ml-20">
         <nav class="my-4 md:text-right md:py-4">
-          <ul class="text-sm flex justify-center border-b border-b-pink-300 pb-4 md:pb-0 md:block md:mb-6 md:border-b-0 md:border-r md:border-r-pink-300">
-	    <li class="px-4 md:mb-4">
+          <ul
+            class="text-sm flex justify-center border-b border-b-pink-300 pb-4 md:pb-0 md:block md:mb-6 md:border-b-0 md:border-r md:border-r-pink-300"
+          >
+            <li class="px-4 md:mb-4">
               <a href="{{ url_for('home') }}">Home</a>
             </li>
             <li class="px-4 md:mb-4">
@@ -36,26 +37,24 @@
             <li class="px-4 md:mb-4">
               <a href="{{ url_for('cart.cart') }}">Cart</a>
             </li>
-	</ul>
+          </ul>
         </nav>
       </div>
       <main class="col-span-5 justify-center text-center md:col-span-4 px-8">
         <header>
           <h1 class="text-2xl font-bold mb-4 md:my-12 md:text-4xl">
-            {% block header %}
-            {% endblock header %}
+            {% block header %} {% endblock header %}
           </h1>
         </header>
-        <section>
-          {% block content %}
-          {% endblock content %}
-        </section>
+        <section>{% block content %} {% endblock content %}</section>
       </main>
     </div>
-    <footer class="grid grid-cols-5 text-sm text-center p-8 mt-10 bg-pink-300 bg-opacity-50 sticky">
+    <footer
+      class="grid grid-cols-5 text-sm text-center p-8 mt-10 bg-pink-300 bg-opacity-50 sticky"
+    >
       <div class="md:col-span-1"></div>
       <div class="col-span-5 md:col-span-4">Copyright 2023, Breezy</div>
     </footer>
-    <script src="{{ url_for('static', filename='dist/main.js' }}"></script>
+    <script src="{{ url_for('static', filename='dist/main.js') }}"></script>
   </body>
 </html>
