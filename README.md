@@ -1,6 +1,10 @@
 # flower-store
 
-Store for selling flowers built on Flask.
+[Live site](flowers.davidrambo.org)
+
+Store for cataloging and selling flowers built on Flask.
+The selling part is currently a proof-of-concept implementation.
+The cart can be added to, quantities can be updated, and an order can be "submitted," which modifies the stock in the database.
 
 ## Installation
 
@@ -49,12 +53,19 @@ During development, the TailwindCSS can be updated automatically by running a ba
 
 ### Elasticsearch
 
-Elasticsearch is implemented on the `elasticsearch` branch.
+Elasticsearch is implemented on the `elasticsearch` and `deploy` branches.
 The `main` branch uses case-insensitive SQL queries.
+(When deploying, I have an env variable used to configure which of these two implementations to use for search.)
 It works well enough, but it cannot handle fuzzy search in the way elasticsearch does.
 
 When using elasticsearch during development, I run it on my workstation.
 If you do this, remember to stop the process when you're done.
+
+## Deploying
+
+The `deploy` branch is used to deploy on an Ubuntu server hosted by Linode.
+It uses gunicorn as a production server and nginx with a reverse proxy to serve it via HTTPS.
+I have a subdomain A record with my netlify-hosted personal website pointing to the server.
 
 ## TODO
 
