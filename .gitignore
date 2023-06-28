@@ -2,6 +2,7 @@ instance/
 src/flower_store/static/flower_imgs/*
 !src/flower_store/static/flower_imgs/default.png
 http_ca.crt
+logs/
 
 **/.DS_Store
 
