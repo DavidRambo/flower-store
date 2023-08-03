@@ -1,6 +1,6 @@
 # flower-store
 
-[Live site](flowers.davidrambo.org)
+[Live site](https://flowers.davidrambo.org)
 
 Store for cataloging and selling flowers built on Flask.
 The selling part is currently a proof-of-concept implementation.
