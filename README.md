@@ -3,8 +3,6 @@
 Store for selling flowers built on Flask.
 Since I don't currently intend to sell flowers, I have not integrated payment processing.
 
-See it live here: [flowers.davidrambo.org](https://flowers.davidrambo.org)
-
 ## Installation
 
 flower-store uses [pip-tools](pypi.org/project/pip-tools) to manage dependencies and [Hatch](hatch.pypa.io) as its build system.
